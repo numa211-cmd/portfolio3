@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職務経歴図解 - 沼田幸栄</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 { margin: 0; color: var(--primary-color); font-size: 1.8rem; }
+        .update-date { font-size: 0.9rem; color: #666; }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e0e0e0;
+        }
+
+        .item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 80px;
+        }
+
+        .dot {
+            position: absolute;
+            left: 22px;
+            top: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--accent-color);
+            z-index: 1;
+        }
+
+        .content {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            transition: transform 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .period {
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background: #eee;
+            padding: 3px 10px;
+            border-radius: 15px;
+            color: #555;
+        }
+
+        .achievements {
+            margin: 0;
+            padding-left: 1.2em;
+            font-size: 0.95rem;
+        }
+
+        .achievements li { margin-bottom: 5px; }
+
+        /* Skills Section */
+        .skills-section {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--success-color);
+        }
+
+        .skill-card h3 { margin-top: 0; font-size: 1rem; color: var(--primary-color); }
+
+        @media (max-width: 600px) {
+            .skills-section { grid-template-columns: 1fr; }
+            .timeline::before { left: 21px; }
+            .dot { left: 12px; }
+            .item { padding-left: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>職務経歴 インフォグラフィック</h1>
+        <div class="update-date">沼田 幸栄 | 2026年3月29日 現在</div>
+    </header>
+
+    <div class="timeline">
+        <div class="item">
+            <div class="dot" style="background: var(--success-color); box-shadow: 0 0 0 4px var(--success-color);"></div>
+            <div class="content">
+                <span class="period">2001.01 〜 現在 (25年超)</span>
+                <p class="company">有限会社ハタヤ</p>
+                <div class="tags">
+                    <span class="tag">デジタルプリントグループリーダー</span>
+                    <span class="tag">改善活動</span>
+                    <span class="tag">AI導入</span>
+                    <span class="tag">健康経営</span>
+                </div>
+                <ul class="achievements">
+                    <li><b>オペレーター:</b> 大型インクジェットによる印刷</li>
+                    <li><b>AI導入:</b> AIによる議事録作成・分析、製造記録の自動化を実現</li>
+                    <li><b>品質管理:</b> 2週間毎の改善活動を定例化し、ロス削減と課題可視化を達成</li>
+                    <li><b>メンバーの育成・目標管理:</b> 月1回の1on1、多能工化教育</li>                   
+                    <li><b>組織貢献:</b> 社内健康セミナーの実施、健康診断項目（HbA1c）の追加提案を実現</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="dot"></div>
+            <div class="content">
+                <span class="period">1994.10 〜 2000.10</span>
+                <p class="company">渡部通商株式会社</p>
+                <div class="tags">
+                    <span class="tag">配送業務</span>
+                    <span class="tag">倉庫作業</span>
+                </div>
+                <ul class="achievements">
+                    <li>5年間無事故を継続</li>
+                    <li>尼崎を拠点に広島から静岡までの中距離を担当</li>
+                  
+                </ul>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="dot"></div>
+            <div class="content">
+                <span class="period">1992.04 〜 1994.10</span>
+                <p class="company">石光商事株式会社</p>
+                <div class="tags">
+                    <span class="tag">企画開発課</span>
+                    <span class="tag">設備の保守点検</span>
+                    <span class="tag">焙煎機、ミルの販売営業</span>
+                </div>
+                <ul class="achievements">
+                    <li>設備の保守点検の現場監督補助</li>
+                    <li>設備の理解を深め、見積・機械の営業を行う</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="skills-section">
+        <div class="skill-card">
+            <h3>🎨 スキル・その他</h3>
+            <div class="tags">
+                <span class="tag">Illustrator</span>
+                <span class="tag">Photoshop</span>
+                <span class="tag">Final Cut Pro</span>
+                <span class="tag">AI活用力</span>
+                <span class="tag">健康経営マインド</span>
+                <span class="tag">工程管理</span>
+            </div>
+        </div>
+        <div class="skill-card" style="border-left-color: var(--accent-color);">
+            <h3>🚛 資格・その他</h3>
+            <div class="tags">
+                <span class="tag">大型自動車第一種運転免許</span>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ページ読み込み時にふわっと表示させる演出
+    document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll('.item');
+        items.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transition = `all 0.5s ease ${index * 0.2}s`;
+            item.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 100);
+        });
+    });
+</script>
+
+</body>
+</html>
