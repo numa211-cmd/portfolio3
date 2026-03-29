@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTFOLIO | KOEI NUMATA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0077b6;
+            --secondary-color: #00b4d8;
+            --accent-color: #fb8500;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { margin: 0; color: var(--primary-color); font-size: 2.5rem; }
+        .subtitle { font-size: 1.2rem; color: #666; font-weight: bold; }
+
+        /* グリッドレイアウト */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
+
+        h2 {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 10px;
+            font-size: 1.3rem;
+            margin-top: 0;
+        }
+
+        .highlight { color: var(--primary-color); font-weight: bold; }
+
+        /* ビジョンセクション */
+        .vision-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .vision-box h2 { border: none; color: white; }
+
+        /* スキル・強み */
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        /* 適合性の図解 */
+        .matching {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .matching-item { text-align: center; width: 30%; }
+        .arrow { font-size: 2rem; color: var(--primary-color); }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .matching { flex-direction: column; }
+            .arrow { transform: rotate(90deg); margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>ヌマタ コウエイ</h1>
+        <p class="subtitle">現場リーダー × 習慣化の達人 × 健康ビジョナリー</p>
+    </header>
+
+    <div class="vision-box">
+        <h2>私の最終ゴール：日本を健康で強くする</h2>
+        <p>「高齢者も健康で働き続けられる社会」を、医療現場の最前線から支えたい。</p>
+        <p><strong>河合医院の「54年の健診実績」×「私の健康への情熱」</strong></p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>1. 確かな技術と責任感</h2>
+            <ul>
+                <li><span class="highlight">大型車両への適応:</span> 現在、大型フラットベッドプリンターを操るオペレーターとして、精密な機械操作と安全管理を徹底。</li>
+                <li><span class="highlight">メンテナンス能力:</span> 日常的な機材チェック、トラブル対応、清掃をルーティン化。検診車の整備・車検管理にも即戦力として貢献します。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>2. 現場を動かす改善力</h2>
+            <ul>
+                <li><span class="highlight">チームリーダー経験:</span> 30人規模の会社で現場を牽引。円滑なコミュニケーションと段取りで、健診スタッフの送迎をスムーズに行います。</li>
+                <li><span class="highlight">効率化の追求:</span> AIやデジタルツールを駆使した業務改善を実践中。検診補助（受付・計測）もマニュアルを素早く理解し、ミスなく遂行します。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>3. 信頼を生む「習慣化力」</h2>
+            <ul>
+                <li><span class="highlight">7つの習慣をベース:</span> 20年来、誠実さと主体性を大切にしています。</li>
+                <li><span class="highlight">自己管理の徹底:</span> 筋トレ・食事管理を継続。繁忙期の早出や変則的な勤務にも、高い自己管理能力で安定して対応します。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>4. 医療事務・補助への適性</h2>
+            <ul>
+                <li><span class="highlight">丁寧な対人対応:</span> リーダーとして培った「挨拶」と「傾聴」で、受診者の方に安心感を提供します。</li>
+                <li><span class="highlight">正確なデータ扱い:</span> 印刷業界で培った「色合わせ」「品質チェック」の緻密さを、身長・体重・視力検査の正確な記録に活かします。</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2 style="text-align:center;">河合医院 × ヌマタ のシナジー</h2>
+    <div class="matching">
+        <div class="matching-item">
+            <p><strong>河合医院</strong></p>
+            <p><small>地域と企業の健康を守る<br>伝統と信頼の健診業務</small></p>
+        </div>
+        <div class="arrow">✚</div>
+        <div class="matching-item">
+            <p><strong>ヌマタ コウエイ</strong></p>
+            <p><small>大型運転技術 × 改善思考<br>健康への強い信念</small></p>
+        </div>
+        <div class="arrow">＝</div>
+        <div class="matching-item">
+            <p><strong class="highlight">最高の健診チーム</strong></p>
+            <p><small>「安全・正確・元気」を<br>届ける現場の要</small></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>「これまでのキャリアで培った現場力と、これからの人生で成し遂げたい健康への想い。<br>その両方を、河合医院のドライバー・健診補助として捧げます。」</p>
+    </footer>
+</div>
+
+<script>
+    // ページ読み込み時にフェードインさせる演出
+    window.onload = function() {
+        document.body.style.opacity = 0;
+        document.body.style.transition = 'opacity 1s';
+        setTimeout(() => {
+            document.body.style.opacity = 1;
+        }, 100);
+    };
+</script>
+
+</body>
+</html>
