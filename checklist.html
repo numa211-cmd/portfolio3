@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモンチェックリスト - 作業工程管理</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* フローチャート図解のスタイル */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step {
+            width: 250px;
+            padding: 12px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            background-color: white;
+            position: relative;
+        }
+
+        .flow-step::after {
+            content: "↓";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+
+        .flow-step:last-child::after {
+            content: "";
+        }
+
+        .branch-container {
+            display: flex;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        /* チェックリストのスタイル */
+        .checklist-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            background: #eff6ff;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .check-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .check-item.completed {
+            background-color: #f0fdf4;
+            color: #64748b;
+            text-decoration: line-through;
+        }
+
+        .note {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--danger-color);
+            font-weight: bold;
+            margin-top: 4px;
+            text-decoration: none !important;
+        }
+
+        .info-box {
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .progress-bar-container {
+            position: sticky;
+            top: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ポケモンチェックリスト</h1>
+
+    <div class="progress-bar-container">
+        <div style="display:flex; justify-content: space-between; margin-bottom: 5px;">
+            <span style="font-size: 0.8rem; font-weight: bold;">全体進捗</span>
+            <span id="progress-text" style="font-size: 0.8rem; font-weight: bold;">0%</span>
+        </div>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+    </div>
+
+    <div class="flow-container">
+        <div class="flow-step">1. ローカルへDL</div>
+        <div class="flow-step">2. データ加工・調整</div>
+        <div class="flow-step" style="background-color: #fff7ed;">3. 厳重チェック (Cmd+Opt 2,3)</div>
+        <div class="flow-step">4. 社内確認・Chatwork依頼</div>
+        <div class="flow-step" style="border-color: var(--success-color); background-color: #f0fdf4;">5. サーバー8へ上書き</div>
+    </div>
+
+    <div class="checklist-card">
+        
+        <div class="section-title">Step 1: 準備と配置</div>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>サーバー8よりローカルへダウンロード</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>データを開く</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>バーニッシュレイヤーのサンプルの画像を入れ替える
+                <span class="note">※注意：フォトショップデータサイズが違うため、置き換えは絶対に禁止！</span>
+            </div>
+        </label>
+
+        <div class="section-title">Step 2: グラデーション・マスク設定</div>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>グラデーション調整（指示がある場合）
+                <div class="info-box">
+                    ・スライダー：60%の位置<br>
+                    ・薄い部分：1cmの空白を開ける<br>
+                    ・30cm → 29cmに変更
+                </div>
+            </div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>不透明マスクをかける</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>特色（Vernish）をつける</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>特色のオーバープリントをつける</div>
+        </label>
+
+        <div class="section-title">Step 3: 最終チェック（重要）</div>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>バーニッシュレイヤーを非表示にする</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>カラーレイヤーでの確認作業（自動選択ツールで白の濃度を順に消す）
+                <span class="note">※客先データの青い特色が残っていないか徹底確認</span>
+            </div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>コマンド + オプション + 2, 3 を実行</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>バーニッシュレイヤーを表示し、各レイヤーの表示/非表示に間違いがないか最終確認</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>上書き保存</div>
+        </label>
+
+        <div class="section-title">Step 4: 承認フロー</div>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>指定の場所へデータをコピー</div>
+        </label>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>Chatworkで確認と承認依頼を出す</div>
+        </label>
+
+        <div class="section-title">Step 5: 完了</div>
+        <label class="check-item">
+            <input type="checkbox" class="task-check">
+            <div>承認確定後、サーバー8へ慎重に上書き保存
+                <span class="note">※Boxのバックアップを確認しておくこと</span>
+            </div>
+        </label>
+
+    </div>
+</div>
+
+<script>
+    const checkboxes = document.querySelectorAll('.task-check');
+    const progressFill = document.getElementById('progress-fill');
+    const progressText = document.getElementById('progress-text');
+
+    function updateProgress() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.task-check:checked').length;
+        const percentage = Math.round((checked / total) * 100);
+        
+        progressFill.style.width = percentage + '%';
+        progressText.innerText = percentage + '%';
+
+        // 完了した項目のスタイル変更
+        checkboxes.forEach(checkbox => {
+            const parent = checkbox.closest('.check-item');
+            if (checkbox.checked) {
+                parent.classList.add('completed');
+            } else {
+                parent.classList.remove('completed');
+            }
+        });
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateProgress);
+    });
+
+    // 誤操作防止：リロード時に警告（必要に応じて有効化）
+    /*
+    window.onbeforeunload = function() {
+        return "進捗が保存されませんが、終了しますか？";
+    };
+    */
+</script>
+
+</body>
+</html>
