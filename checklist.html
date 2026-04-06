@@ -30,9 +30,10 @@
             margin: 0 auto;
         }
 
-        h1, h2 {
+        h1 {
             text-align: center;
             color: var(--primary-color);
+            margin-bottom: 30px;
         }
 
         /* フローチャート図解のスタイル */
@@ -73,18 +74,13 @@
             content: "";
         }
 
-        .branch-container {
-            display: flex;
-            gap: 40px;
-            margin: 20px 0;
-        }
-
         /* チェックリストのスタイル */
         .checklist-card {
             background: var(--card-bg);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
         }
 
         .section-title {
@@ -112,8 +108,8 @@
         }
 
         .check-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             margin-right: 15px;
             margin-top: 3px;
             cursor: pointer;
@@ -143,21 +139,22 @@
             margin-top: 10px;
         }
 
+        /* プログレスバー固定 */
         .progress-bar-container {
             position: sticky;
-            top: 10px;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--primary-color);
             z-index: 100;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(4px);
         }
 
         .progress-bar {
-            height: 10px;
+            height: 12px;
             background: #e2e8f0;
-            border-radius: 5px;
+            border-radius: 6px;
             overflow: hidden;
         }
 
@@ -165,24 +162,60 @@
             height: 100%;
             background: var(--success-color);
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ボタンデザイン */
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--border-color);
+        }
+
+        .btn-reset {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-reset:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-reset:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>ポケモンチェックリスト</h1>
-
-    <div class="progress-bar-container">
-        <div style="display:flex; justify-content: space-between; margin-bottom: 5px;">
-            <span style="font-size: 0.8rem; font-weight: bold;">全体進捗</span>
-            <span id="progress-text" style="font-size: 0.8rem; font-weight: bold;">0%</span>
+<div class="progress-bar-container">
+    <div class="container">
+        <div style="display:flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-weight: bold;">現在の進捗率</span>
+            <span id="progress-text" style="font-weight: bold; color: var(--success-color);">0%</span>
         </div>
         <div class="progress-bar">
             <div id="progress-fill" class="progress-fill"></div>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <h1>ポケモンチェックリスト</h1>
 
     <div class="flow-container">
         <div class="flow-step">1. ローカルへDL</div>
@@ -276,6 +309,12 @@
             </div>
         </label>
 
+        <div class="controls">
+            <button type="button" class="btn-reset" onclick="resetChecklist()">
+                <span>🔄</span> リセットして最初から始める
+            </button>
+        </div>
+
     </div>
 </div>
 
@@ -284,6 +323,7 @@
     const progressFill = document.getElementById('progress-fill');
     const progressText = document.getElementById('progress-text');
 
+    // 進捗の更新関数
     function updateProgress() {
         const total = checkboxes.length;
         const checked = document.querySelectorAll('.task-check:checked').length;
@@ -303,16 +343,22 @@
         });
     }
 
+    // リセット関数
+    function resetChecklist() {
+        if (confirm('チェックをすべて外してリセットしますか？')) {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateProgress();
+            // ページ最上部へスクロール
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    // 各チェックボックスにイベント登録
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateProgress);
     });
-
-    // 誤操作防止：リロード時に警告（必要に応じて有効化）
-    /*
-    window.onbeforeunload = function() {
-        return "進捗が保存されませんが、終了しますか？";
-    };
-    */
 </script>
 
 </body>
