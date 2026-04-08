@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最強データチェックリスト</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --danger-color: #e74c3c;
+            --section-prep: #3498db;
+            --section-check: #f1c40f;
+            --section-post: #9b59b6;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding-bottom: 100px;
+            color: var(--primary-color);
+        }
+
+        /* 固定プログレスバー */
+        .header-sticky {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        h1 { font-size: 1.5rem; margin: 0; text-align: center; }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .prep { background-color: var(--section-prep); }
+        .check { background-color: var(--section-check); color: #333; }
+        .post { background-color: var(--section-post); }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .list-item:last-child { border-bottom: none; }
+        .list-item:hover { background-color: #f9f9f9; }
+
+        input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .text-content { flex: 1; }
+        .note {
+            display: block;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        /* 完了時のスタイル */
+        .completed {
+            background-color: #e8f6ef !important;
+            text-decoration: line-through;
+            color: #95a5a6;
+        }
+
+        /* リセットボタンエリア */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .reset-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .reset-btn:active { transform: scale(0.95); }
+
+    </style>
+</head>
+<body>
+
+<div class="header-sticky">
+    <h1>データチェック進捗</h1>
+    <div id="progress-text" style="text-align: right; font-size: 0.9rem;">0% 完了</div>
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <div class="section-title prep">【準備】</div>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">
+                サーバー8(Karibu2)よりダウンロード
+                <span class="note">/Volumes/data_storage/DP_サンプル保管場所/Karibu2/</span>
+            </div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">データを開く</div>
+        </label>
+    </div>
+
+    <div class="section">
+        <div class="section-title check">【データチェック】</div>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">
+                リンク画像確認
+                <span class="note">「sand_0402_180dpi」になっているか</span>
+            </div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">
+                特色 ”Vernish” の確認
+                <span class="note">バーニッシュレイヤーリンク画像に設定されているか</span>
+            </div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">オーバープリントの確認</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">バーニッシュレイヤーを非表示にする</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">
+                白濃度を順番に消してチェック（自動選択）
+                <span class="note">※青い特色が残っていないか注意！</span>
+            </div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">コマンド + オプション + 2, 3 を実行</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">バーニッシュレイヤーを表示</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">レイヤーの表示/非表示 最終確認</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">上書き保存</div>
+        </label>
+    </div>
+
+    <div class="section">
+        <div class="section-title post">【後処理】</div>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">指定の場所へデータをコピー</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">Chatworkで承認依頼を出す</div>
+        </label>
+        <label class="list-item">
+            <input type="checkbox" class="task-check">
+            <div class="text-content">
+                承認後、サーバー8へ慎重に上書き保存
+                <span class="note">※バックアップがBoxにあるか確認</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="footer">
+        <button class="reset-btn" onclick="resetForm()">全項目をリセット</button>
+    </div>
+</div>
+
+<script>
+    const checks = document.querySelectorAll('.task-check');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
+    function updateProgress() {
+        const total = checks.length;
+        const checked = document.querySelectorAll('.task-check:checked').length;
+        const percentage = Math.round((checked / total) * 100);
+        
+        progressBar.style.width = percentage + '%';
+        progressText.innerText = percentage + '% 完了';
+
+        // 親要素のスタイル変更
+        checks.forEach(check => {
+            if (check.checked) {
+                check.parentElement.classList.add('completed');
+            } else {
+                check.parentElement.classList.remove('completed');
+            }
+        });
+    }
+
+    checks.forEach(check => {
+        check.addEventListener('change', updateProgress);
+    });
+
+    function resetForm() {
+        if (confirm('チェックをすべて外してリセットしますか？')) {
+            checks.forEach(check => {
+                check.checked = false;
+                check.parentElement.classList.remove('completed');
+            });
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+</script>
+
+</body>
+</html>
